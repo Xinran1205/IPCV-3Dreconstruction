@@ -1,5 +1,3 @@
-3D-from-stereo
-
 # Introduction
 In this project, I successfully tackled the challenge of 3D reconstruction for a group of spheres. The journey began by placing six spheres randomly within a 3D environment and capturing their images from two distinct angles using a pair of cameras. This setup enabled the projection of the spheres onto the camera planes.
 
