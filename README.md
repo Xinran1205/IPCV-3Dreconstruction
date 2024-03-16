@@ -1,1 +1,1 @@
-# IPCV-3Dreconstruction
+# Coursework-Part2-3D-from-stereo
