@@ -5,3 +5,4 @@ The next step involved utilizing the Hough Circle Transform on the images from b
 
 To ensure the model's precision, I reprojected the 3D reconstruction onto the original camera planes, comparing it against the actual data. Furthermore, I introduced noise to the relative pose between the cameras and conducted another round of 3D reconstruction to assess the robustness of my methodology against inaccuracies. This comparison offered insightful perspectives on the model's performance under varying conditions.
 
+The code for this project can be found in the CWII2324-v2.py file, and the detailed report is available in the Report.pdf file.
