@@ -3,8 +3,7 @@
 - zh_CN [简体中文](/README.zh_CN.md)
 
 ## Project Overview
-This project aims to reconstruct the 3D positions and radii of spheres using stereoscopic images from two different viewpoints. The core code is handwritten and does not utilize any external libraries, incorporating unique optimization methods to enhance the accuracy and practicality of the model. The project successfully achieves precise reconstruction of the spherical models and validates the results effectively.
-
+This project utilizes techniques such as epipolar geometry and triangulation to reconstruct 3D spheres from 2D images captured from dual camera perspectives, and effectively validates the reconstruction results. The core code is entirely handwritten, does not use any external libraries, and employs original optimization methods to enhance the model's accuracy and practicality.
 ## Detailed Steps
 
 ### Circle Detection
