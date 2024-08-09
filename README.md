@@ -1,8 +1,39 @@
-# Introduction
-In this project, I successfully tackled the challenge of 3D reconstruction for a group of spheres. The journey began by placing six spheres randomly within a 3D environment and capturing their images from two distinct angles using a pair of cameras. This setup enabled the projection of the spheres onto the camera planes.
+# 3D Sphere Reconstruction Project
 
-The next step involved utilizing the Hough Circle Transform on the images from both cameras to extract the circles' parameters. The core of the 3D reconstruction process hinged on accurately determining the centers and radii of the spheres. By employing epipolar geometry, I was able to pinpoint the spheres' centers in the images and reconstruct them in 3D space. For the radii, I selected specific points on the perimeter of each circle and applied the same reconstruction technique. The radius was then calculated as the distance from this point to the center, culminating in the completion of the 3D model.
+- zh_CN [简体中文](/README.zh_CN.md)
 
-To ensure the model's precision, I reprojected the 3D reconstruction onto the original camera planes, comparing it against the actual data. Furthermore, I introduced noise to the relative pose between the cameras and conducted another round of 3D reconstruction to assess the robustness of my methodology against inaccuracies. This comparison offered insightful perspectives on the model's performance under varying conditions.
+## Project Overview
+This project aims to reconstruct the 3D positions and radii of spheres using stereoscopic images from two different viewpoints. The core code is handwritten and does not utilize any external libraries, incorporating unique optimization methods to enhance the accuracy and practicality of the model. The project successfully achieves precise reconstruction of the spherical models and validates the results effectively.
 
-The code for this project can be found in the **CWII2324-v2.py** file, and the detailed report is available in the **Report.pdf** file.
+## Detailed Steps
+
+### Circle Detection
+- **Hough Circle Transform**: Used to detect circles in images from two perspectives (view0 and view1).
+- **Parameter Adjustment**: Parameters such as the minimum distance (`minDist`), Canny edge detector threshold (`param1`), and accumulator threshold (`param2`) are tuned to optimize the accuracy of circle detection.
+
+### Application of Epipolar Geometry
+- **Calculation of the Essential and Fundamental Matrices**: The Essential Matrix is computed from the rotation and translation vectors between cameras, and the Fundamental Matrix is derived incorporating the cameras' intrinsic parameters to determine the epipolar lines in both views.
+
+### Circle Center Matching
+- **Using the Fundamental Matrix**: Each circle center in view0 is matched to its corresponding epipolar line in view1, identifying the closest circle center pair.
+
+### 3D Reconstruction
+- **Triangulation**: The matched circle centers are used to triangulate their coordinates in 3D space.
+
+### Radius Reconstruction
+- **Selecting Points on the Circumference**: Points on the edge of each circle are chosen and their corresponding points are found through triangulation to determine the radius of the sphere.
+
+### Validation and Visualization
+- **Point Sampling and Reprojection**: Points are sampled on the surfaces of the reconstructed and ground truth spheres, and these points are reprojected to the camera views to visually compare the reconstruction results with the actual data.
+
+## Optimization Steps
+
+### Optimization of Circle Center Matching (Bidirectional Matching)
+- **Problem of Single Direction Matching**: Single direction matching might lead to mismatches as other circle centers might be closer to the epipolar line than the actual centers. To solve this issue, a bidirectional matching method is implemented. This method significantly reduces the likelihood of mismatches by validating matches from both views. Despite the inherent errors in Hough Circle detection, bidirectional matching greatly reduces these risks.
+
+### Improved Strategy for Radius Reconstruction
+- **Initial Approach Issues**: Initially, a point was randomly selected on each circle for matching, which posed a problem when an epipolar line intersected a circle at two points, making it unclear which intersection point was the correct match. To address this, I observed and utilized the external parameters of the cameras and modified the strategy for selecting points on the circle: always choosing the point on the right side of the circle center, parallel to the x-axis, and consistently selecting the intersection point with the largest x-coordinate when two are present. This method effectively resolves the issue of matching the wrong intersection points and improves the accuracy of radius calculations.
+
+### Results Example
+<img src="/pic/1.png" alt="view0">
+<img src="/pic/2.png" alt="view1">
